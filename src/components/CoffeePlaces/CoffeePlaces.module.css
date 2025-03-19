@@ -1,0 +1,52 @@
+/* Estilo para la tarjeta de café */
+.card {
+    display: flex; /* Usamos flexbox para organizar los elementos en una fila */
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para la imagen */
+  .card-img {
+    width: 100px; /* Tamaño pequeño para la imagen */
+    height: 100px; /* Mantiene la imagen cuadrada */
+    border-radius: 20%; /* Imagen circular */
+    object-fit: cover; /* Mantiene la proporción y recorta si es necesario */
+    margin-right: 15px; /* Añadimos un poco de espacio entre la imagen y el contenido */
+  }
+  
+  /* Estilo para el cuerpo de la tarjeta */
+  .card-body {
+    display: flex;
+    flex-direction: row; /* Alinea los elementos en una fila */
+    align-items: center; /* Alinea la imagen y el contenido verticalmente */
+    text-align: left; /* Alineamos el texto a la izquierda */
+    flex: 1; /* Esto permite que el contenido ocupe el espacio restante */
+  }
+  
+  /* Estilo para el título */
+  .card-title {
+    font-size: 1.25rem; /* Tamaño del título */
+    font-weight: bold; /* Hacer el título negrita */
+    color: #3e2723; /* Color del título */
+    margin-bottom: 5px; /* Espacio inferior entre el título y el resto del contenido */
+  }
+  
+  /* Estilo para el botón */
+  .btn-primary {
+    background-color: #FF8C00; /* Naranja */
+    border-color: #FF8C00; /* Naranja */
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-align: center; /* Centra el texto en el botón */
+    cursor: pointer; /* Cambio de cursor para indicar que es clickeable */
+  }
+  
+  /* Hover para el botón */
+  .btn-primary:hover {
+    background-color: #e67900; /* Naranja más oscuro */
+    border-color: #876947; /* Naranja más oscuro */
+  }
+  

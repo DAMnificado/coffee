@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #8B5E3B, #6B3E26);
+    padding: 20px;
+}
+
+.title {
+    font-size: 2rem;
+    color: #F8E0C6;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.card {
+    background: #D2A679;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    border-left: 6px solid #8B5E3B;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #3E2723;
+}
+
+.card p {
+    margin: 5px 0;
+    color: #2E1B14;
+}
+
+.status {
+    font-weight: bold;
+    color: #F8E0C6;
+    background: #6B3E26;
+    padding: 3px 8px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.noMachines {
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+}
