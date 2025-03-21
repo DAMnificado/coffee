@@ -1,52 +1,108 @@
-/* Estilo para la tarjeta de café */
+/* Estilo para la tarjeta de máquina */
 .card {
-    display: flex; /* Usamos flexbox para organizar los elementos en una fila */
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilo para la imagen */
-  .card-img {
-    width: 100px; /* Tamaño pequeño para la imagen */
-    height: 100px; /* Mantiene la imagen cuadrada */
-    border-radius: 20%; /* Imagen circular */
-    object-fit: cover; /* Mantiene la proporción y recorta si es necesario */
-    margin-right: 15px; /* Añadimos un poco de espacio entre la imagen y el contenido */
-  }
-  
-  /* Estilo para el cuerpo de la tarjeta */
-  .card-body {
-    display: flex;
-    flex-direction: row; /* Alinea los elementos en una fila */
-    align-items: center; /* Alinea la imagen y el contenido verticalmente */
-    text-align: left; /* Alineamos el texto a la izquierda */
-    flex: 1; /* Esto permite que el contenido ocupe el espacio restante */
-  }
-  
-  /* Estilo para el título */
-  .card-title {
-    font-size: 1.25rem; /* Tamaño del título */
-    font-weight: bold; /* Hacer el título negrita */
-    color: #3e2723; /* Color del título */
-    margin-bottom: 5px; /* Espacio inferior entre el título y el resto del contenido */
-  }
-  
-  /* Estilo para el botón */
-  .btn-primary {
-    background-color: #FF8C00; /* Naranja */
-    border-color: #FF8C00; /* Naranja */
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 12px;
-    text-align: center; /* Centra el texto en el botón */
-    cursor: pointer; /* Cambio de cursor para indicar que es clickeable */
-  }
-  
-  /* Hover para el botón */
-  .btn-primary:hover {
-    background-color: #e67900; /* Naranja más oscuro */
-    border-color: #876947; /* Naranja más oscuro */
-  }
-  
+  display: flex; /* Usamos flexbox para organizar los elementos en una fila */
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para la imagen */
+.card-img {
+  width: 100px; /* Tamaño pequeño para la imagen */
+  height: 100px; /* Mantiene la imagen cuadrada */
+  border-radius: 20%; /* Imagen circular */
+  object-fit: cover; /* Mantiene la proporción y recorta si es necesario */
+  margin-right: 15px; /* Añadimos un poco de espacio entre la imagen y el contenido */
+}
+
+/* Estilo para el contenedor de las cartas */
+.row {
+  display: flex;
+  flex-wrap: wrap;  /* Permite que las cartas se ajusten a varias filas si es necesario */
+  justify-content: space-between;  /* Distribuye las cartas con espacio entre ellas */
+  gap: 1rem;  /* Agrega un espacio entre las cartas */
+  width: 100%;  /* Asegura que el contenedor ocupe todo el ancho */
+  margin: 0;  /* Quita el margen predeterminado */
+}
+
+/* Estilo para el cuerpo de la tarjeta */
+.card-body {
+  display: flex;
+  flex-direction: row; /* Alinea los elementos en una fila */
+  align-items: center; /* Alinea la imagen y el contenido verticalmente */
+  text-align: left; /* Alineamos el texto a la izquierda */
+  flex: 1; /* Esto permite que el contenido ocupe el espacio restante */
+}
+/* Estilo para el nombre del café */
+.card-title {
+  font-size: 1.25rem; /* Tamaño del título */
+  font-weight: bold; /* Hacer el título negrita */
+  color: #3e2723; /* Color del título */
+  margin-bottom: 5px; /* Espacio inferior entre el título y el resto del contenido */
+  white-space: nowrap; /* Impide que el texto se rompa en varias líneas */
+  overflow: hidden; /* Oculta el texto que excede el ancho */
+  text-overflow: ellipsis; /* Muestra '...' cuando el texto se desborda */
+  max-width: 100%; /* Asegura que el título ocupe todo el ancho disponible */
+  display: block;
+}
+
+
+/* Estilo para el código */
+.card-code {
+  font-size: 1rem; /* Tamaño del texto del código */
+  color: #6B4B05; /* Color para el código de la máquina */
+  margin-top: 5px; /* Espacio superior entre el nombre y el código */
+}
+
+/* Estilo para el botón */
+.btn-primary {
+  background-color: #c1cfc3; /* Naranja */
+  border-color: #2d2938; /* Naranja */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-align: center; /* Centra el texto en el botón */
+  cursor: pointer; /* Cambio de cursor para indicar que es clickeable */
+  margin-left: auto; /* Empuja el botón a la extrema derecha */
+}
+
+/* Hover para el botón */
+.btn-primary:hover {
+  background-color: #e67900; /* Naranja más oscuro */
+  border-color: #876947; /* Naranja más oscuro */
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(to bottom, #CC8203, #6B4B05); /* Aplica el gradiente */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .brand {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar .user-icon {
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.navbar .logout {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .logout:hover {
+  background-color: #f0f0f0;
+}
