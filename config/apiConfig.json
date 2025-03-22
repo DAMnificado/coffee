@@ -1,0 +1,10 @@
+{
+    "apiBaseUrl": "https://localhost:7292",
+    "endpoints": {
+      "bares": "/api/bares",
+      "login": "/api/login",
+      "machinesByBar": "/api/maquinas/bar",
+      
+      "intervention": "/api/intervention"
+    }
+  }

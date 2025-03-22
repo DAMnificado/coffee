@@ -5,34 +5,86 @@ import { Dropdown } from "react-bootstrap"; // Importamos Dropdown de react-boot
 import styles from './CoffeePlaces.module.css'; // Importa el archivo CSS como un módulo
 import { BsArrowLeft } from "react-icons/bs";
 import { FaArrowRight } from 'react-icons/fa'; // Importamos el icono de la flecha
-
+import apiConfig from "/config/apiConfig"; // Importa la configuración de la API
 
 const CoffeePlaces = () => {
   const [search, setSearch] = useState(""); // Estado para el filtro por nombre
-  const [cafes, setCafes] = useState([]); // Estado para almacenar los cafés
+  const [bares, setBares] = useState([]); // Estado para almacenar los bares
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga
+  const [error, setError] = useState(null); // Estado para manejar errores
   const navigate = useNavigate(); // Para la navegación
 
-  // Recuperamos el nombre del usuario desde localStorage
+  // Recuperamos el token y el nombre del usuario desde localStorage
+  const token = localStorage.getItem("token");
   const username = localStorage.getItem("username") || "Invitado";
 
-  // Cargar cafés desde localStorage para el usuario actual
+  // Redirigir al inicio si no hay token
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("users")) || {};
-    const userCafes = storedData[username]?.cafes || [];
-    setCafes(userCafes);
-  }, [username]);
+    if (!token) {
+      console.log("❌ Token no encontrado. Redirigiendo...");
+      navigate("/");
+      return; // Detener la ejecución
+    }
 
-  // Filtrar los cafés según el texto de búsqueda
-  const filteredCafes = cafes.filter(cafe =>
-    cafe.name.toLowerCase().includes(search.toLowerCase())
-  );
+
+  
+    // Cargar bares desde el endpoint /api/bares
+    const fetchBares = async () => {
+      try {
+        const apiUrl = `${apiConfig.apiBaseUrl}${apiConfig.endpoints.bares}`;
+        console.log("➡️ Solicitando datos de bares...");
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`, // Usamos el token JWT para autenticar
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("⬅️ Respuesta recibida:", response.status);
+
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("📦 Datos recibidos:", data); // Verificar estructura de datos
+
+        // Validar que los datos sean un array y tengan la estructura correcta
+        if (!Array.isArray(data)) {
+          throw new Error("Los datos recibidos no son válidos");
+        }
+
+        setBares(data);
+      } catch (err) {
+        console.error("🚨 Error:", err);
+        setError("❌ Error al cargar los bares");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBares();
+  }, [token, navigate]);
+
+  // Filtrar los bares según el texto de búsqueda
+  const filteredBares = bares
+    .filter(bar => bar && bar.nombre && bar.localizacion) // Asegúrate de que cada bar tenga las propiedades correctas
+    .filter(bar =>
+      bar.nombre.toLowerCase().includes(search.toLowerCase())
+    );
 
   // Función para manejar el cierre de sesión
   const handleLogout = () => {
-    localStorage.removeItem("auth"); // Limpiar sesión
+    localStorage.removeItem("token"); // Limpiar token
     localStorage.removeItem("username"); // Eliminar usuario
     navigate("/"); // Redirigir a la página principal
   };
+
+  // Si no hay bares disponibles, muestra un mensaje
+  if (!Array.isArray(bares) || bares.length === 0) {
+    return <p>No se encontraron bares.</p>;
+  }
 
   return (
     <div className="container-fluid">
@@ -69,21 +121,41 @@ const CoffeePlaces = () => {
       </div>
 
       <div className="container mt-5">
-        {/* Mostrar los cafés filtrados */}
+        {/* Mostrar mensaje de error si ocurre */}
+        {error && <p className={styles.error}>{error}</p>}
+
+        {/* Mostrar mensaje de carga mientras se obtienen los datos */}
+        {loading && <p>Cargando bares...</p>}
+
+        {/* Mostrar los bares filtrados */}
         <div className="row">
-          {filteredCafes.map((cafe) => (
-          <div key={cafe.id} className="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-4 mb-6">
+          {filteredBares.length === 0 && !loading && (
+            <p>No hay bares que coincidan con la búsqueda.</p>
+          )}
+
+          {filteredBares.map((bar) => (
+            <div key={bar.id} className="col-12 col-sm-6 col-md-4 mb-4">
               <div className={styles.card}>
                 <div className={styles['card-body']}>
-                  <img src={cafe.image} alt={cafe.name} className={styles['card-img']} />
+                  {/* Mostrar la imagen a la izquierda */}
+
+
+                  {/* TODO cambiar url para que sea dinamica */}
+                  <img
+                    src={`https://localhost:7292/${bar.imagen}`} // URL de la imagen
+                    alt={bar.nombre}  
+                    className={styles['card-img']} // Aplica los estilos para la imagen
+                  />
+
                   <div className={styles['card-texts']}>
-                  <h5 className={styles['card-title']}>
-                {cafe.name.length > 18 ? cafe.name.slice(0, 18) + "..." : cafe.name}
-              </h5>
-                    <p className={styles['card-address']}>{cafe.address}</p>
+                    <h5 className={styles['card-title']}>
+                      {bar.nombre.length > 18 ? bar.nombre.slice(0, 18) + "..." : bar.nombre}
+                    </h5>
+                    <p className={styles['card-address']}>{bar.localizacion}</p>
                   </div>
-                  {/* Ahora la flecha está a la derecha */}
-                  <Link to={`/machines/${cafe.id}`} className={styles['btn-primary']}>
+
+                  {/* Botón para ver máquinas del bar */}
+                  <Link to={`/machines/${bar.id}`} className={styles['btn-primary']}>
                     <FaArrowRight size={20} /> {/* Icono de flecha con tamaño de 20px */}
                   </Link>
                 </div>
